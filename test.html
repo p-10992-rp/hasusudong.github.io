@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			$('.result2').click(function(){
+				$('.calc').hide();
+
+			});
+
+		});
+
+$(document).ready(function(){
+
+			$('.pm').click(function(){
+				$(this).next('.calc').slideDown();
+
+			});
+
+		});
+
+
+	</script>
+	<title>test</title>
+</head>
+<body>
+
+<div class="wrap">
+
+
+	<form action="ano.php" method="post">
+
+<div class="sero3">
+
+
+
+</div>
+
+
+<div class="sero2">
+	
+<div class="megu"></div>
+
+<div class="hnum">
+	<p class="heart"></p>
+
+</div>
+
+<div class="icon hrtcon">
+</div>
+
+
+<div class="kaho"></div>
+
+
+
+</div>
+
+
+<div class="sero3">
+
+
+
+<div class="disbox">
+	<div class="icon hpcon <? 
+
+	if ($hp2 <= 30) {
+		echo "danger";
+	} 
+elseif ($hp2 >= 100) {
+	echo "over";
+}
+
+else{
+
+}
+
+?>"></div>
+	<div class="num"><h1><? echo $hp; ?></h1></div>
+
+
+</div>
+
+
+<div class="disbox">
+	<div class="icon volcon"></div>
+	<div class="num">
+
+		<h1><? echo $vx; ?></h1>
+
+	</div>
+
+
+</div>
+
+
+	
+
+<div class="pm">
+
+<div class="disbox">
+	<div class="icon volcon"></div>
+	<div class="num">
+
+		<h1><? echo $vx; ?></h1>
+
+	</div>
+
+
+</div>
+
+		
+	</div>
+
+ <div class='calc' id="volcalc">
+        <div class='display'>
+            <div class='numspace'></div>
+        </div>
+        <div class='btns'>
+            <button class='numBtn pt'>+10</button>
+            <button class='numBtn mt'>-10</button>
+            <button class='numBtn pf'>+5</button>
+            <button class='numBtn mf'>-5</button>
+            <button class='numBtn po'>+1</button>
+            <button class='numBtn mo'>-1</button>
+            <button data-type='result' class='result2'>확 인</button>
+        </div>
+    </div>
+
+
+
+
+<div class="pm">
+
+<div class="disbox">
+	<div class="icon hpcon"></div>
+	<div class="num"><h1><? echo $hp; ?></h1></div>
+
+
+</div>
+
+		
+	</div>
+
+ <div class='calc' id="hpcalc">
+        <div class='display'>
+            <div class='numspace'></div>
+        </div>
+        <div class='btns'>
+            <button class='numBtn pt'>+10</button>
+            <button class='numBtn mt'>-10</button>
+            <button class='numBtn pf'>+5</button>
+            <button class='numBtn mf'>-5</button>
+            <button class='numBtn po'>+1</button>
+            <button class='numBtn mo'>-1</button>
+            <button data-type='sld' class='cb'>실 드</button>
+            <button data-type='result' class='result2'>확 인</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="sero1">
+	
+<div class="apbar">
+	<?
+for ($i=0; $i <= $ap; $i++) { 
+	echo "<div class="apkaho"></div>";
+}
+
+	?>
+</div>
+
+<p><?echo $ap;?>/10</p>
+
+
+</div>
+
+
+	
+
+
+<input type="hidden" name="hp" value="<?echo $hp;?>">
+<input type="hidden" name="sd" value="<?echo $hp;?>">
+<input type="hidden" name="br" value="<?echo $hp;?>">
+<input type="hidden" name="vol" value="<?echo $hp;?>">
+<input type="hidden" name="vl" value="<?echo $hp;?>">
+<input type="hidden" name="hp" value="<?echo $hp;?>">
+<input type="hidden" name="ta" value="<?echo $hp;?>">
+<input type="hidden" name="sa" value="<?echo $hp;?>">
+<input type="hidden" name="hrt2" value="<?echo $hp;?>">
+
+
+<input type="hidden" name="hp2" value="<?echo $hp;?>">
+<input type="hidden" name="sd2" value="<?echo $hp;?>">
+<input type="hidden" name="br2" value="<?echo $hp;?>">
+<input type="hidden" name="vol2" value="<?echo $hp;?>">
+<input type="hidden" name="hp2" value="<?echo $hp;?>">
+<input type="hidden" name="ta2" value="<?echo $hp;?>">
+<input type="hidden" name="sa2" value="<?echo $sa2;?>">
+<input type="hidden" name="hrt" value="">
+
+
+
+
+
+<script type="text/javascript">
+	
+const buttons = document.querySelectorAll('button');
+const displayElement = document.querySelector('.input');
+const numBtn = document.querySelectorAll('.numBtn');
+
+let previousNum = ''; //이전 값
+let resentNum = ''; // 최근값
+
+
+
+
+let calculator = () => {
+  let isFirstDigit = true; // 첫 번째 숫자 여부를 판별하는 변수
+
+  buttons.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      let action = e.target.classList[0];
+      let value = e.target.classList[1];
+      let click = e.target.innerHTML;
+
+
+      if (action === 'numBtn') {
+
+        if (displayElement.textContent === '' && operatorOn === '') {
+          //창이비어있고 연산자 누르지 않았을때(한자리)
+          displayElement.textContent = click;
+          previousNum = displayElement.textContent;
+        } else if (
+          //창이비어지 않고 연산자 누르지 않았을때(한자리이상)
+          displayElement.textContent !== '' &&
+          operatorOn === ''
+        ) {
+          displayElement.textContent = 
+          displayElement.textContent + click;
+          previousNum = displayElement.textContent;
+        } else if (
+          //창이비어있고 연산자 눌렀을때(한자리)
+          displayElement.textContent === '' &&
+          operatorOn !== ''
+        ) {
+          displayElement.textContent = click;
+          resentNum = displayElement.textContent;
+        } else if (
+          //창이비어있지않고 연산자 누르지 않았을때 (한자리이상)
+          displayElement.textContent !== '' &&
+          operatorOn !== ''
+        ) {
+          displayElement.textContent = 
+          displayElement.textContent + click;
+          resentNum = displayElement.textContent;
+        }
+        isFirstDigit = false; 
+        // 첫 번째 숫자 입력 후에는 첫 번째 숫자가 아님을 표시
+      }
+
+      if (action === 'result2') {
+        // = 눌렀을 때 calculate함수 실행
+        displayElement.textContent = calculate(
+          previousNum,
+          operatorOn,
+          resentNum
+        );
+        isFirstDigit = true; 
+        // 결과를 표시한 후에는 다음 숫자는 첫 번째 숫자가 됨
+      }
+      if (action === 'ac') {
+        //C 버튼 눌렀을 때 모든 할당 초기화
+        displayElement.textContent = '';
+        previousNum = '';
+        operatorOn = '';
+        resentNum = '';
+        isFirstDigit = true; 
+        // 모든 할당 초기화 후에는 다음 숫자는 첫 번째 숫자가 됨
+      }
+    });
+  });
+};
+calculator();
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+</form>
+
+
+</div>
+
+</body>
+</html>
